@@ -1,3 +1,68 @@
+This read me is in english in the first part and in spanish en in lowerpart
+Este readme está en ingles en la primer parte y en español en la parte de abajo
+
+
+# Ingles
+
+# Introduction
+
+This repository contains Python scripts designed to analyze Spotify listening history data and generate animated visualizations of artists, songs, and listening hours over time. The scripts utilize the Pandas library for data manipulation and Matplotlib for creating visualizations.
+
+## Repository Structure
+
+- **data**: Folder to store JSON files with listening history.
+- **scripts**: Folder containing Python scripts:
+  - `Top5ArtistBarsHorizontalSpotify.py`: Creates a horizontal bar chart animation showing the top 5 artists at each moment in the year.
+  - `Top10ArtistSpotify.py`: Generates a line animation showing the evolution of listening hours for the top 10 artists throughout the year.
+  - `Top10SongsSpotify.py`: Creates a similar animation as the previous one, but focused on the top 10 songs of a specific artist.
+
+## Prerequisites
+
+- **Python**: Python 3.6 or later is recommended.
+- **Libraries**:
+  - `pandas`: For data manipulation and analysis.
+  - `matplotlib`: For creating visualizations.
+  - `matplotlib.animation`: For creating animations.
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/HechosColombia/SpotifyPython](https://github.com/HechosColombia/SpotifyPython)
+## Installation
+
+**Bash**
+pip install pandas matplotlib
+**Bash**
+
+
+## Usage
+
+1. Place the JSON file with your listening history in the **data** folder.
+2. Modify the artist or song names in the scripts if necessary.
+3. Run the desired script:
+
+   ```bash
+   python scripts/Top5ArtistBarsHorizontalSpotify.py
+## Customization
+
+- **Specific artist**: Modify the artist name in the `Top10SongsSpotify.py` script.
+- **Date range**: Adjust the date range in the animation creation.
+- **Graph style**: Customize colors, titles, legends, and other aesthetic elements of the graphs.
+- **Output format**: Change the output format of the animation (e.g., GIF, MP4).
+
+## Considerations
+
+- **JSON file size**: For large datasets, it is recommended to process the data in parts or use more efficient tools for visualization.
+- **Performance**: Generating animations can be time-consuming, especially for large datasets.
+- **Data cleaning**: You may need to clean the data before analysis, such as removing outliers or correcting errors in the data.
+
+## Contributions
+
+Contributions are welcome. If you find any bugs or want to add new features, please create an issue or a pull request.
+
+
+# ESPAÑOL
 # Introducción
 
 Este repositorio contiene scripts Python diseñados para analizar datos de historial de escucha de Spotify y generar visualizaciones animadas de los artistas, canciones y horas de escucha a lo largo del tiempo. Los scripts utilizan la biblioteca Pandas para manipular los datos y Matplotlib para crear las visualizaciones.
