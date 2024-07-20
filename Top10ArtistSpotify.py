@@ -2,45 +2,45 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-# Cargar los datos desde el archivo JSON
+# Load the data from the JSON file / CARGAR DATOS DEL ARCHIVO JSON
 df = pd.read_json('StreamingHistory0.json')
 
-# Convertir la columna 'endTime' a datetime
+# Convert the 'endTime' column to datetime / CONVERTIR LA COLUMNA 'endTime' A DATETIME
 df['endTime'] = pd.to_datetime(df['endTime'])
 
-# Agrupar por artista y sumar los milisegundos reproducidos
-artist_hours = df.groupby('artistName')['msPlayed'].sum() / (1000 * 60 * 60)  # Convertir ms a horas
-top_artists = artist_hours.nlargest(10)  # Obtener los 10 principales artistas
+# Group by artist and sum the played milliseconds / AGRUPAR POR ARTISTA Y SUMAR LOS MILISEGUNDOS REPRODUCIDOS
+artist_hours = df.groupby('artistName')['msPlayed'].sum() / (1000 * 60 * 60)  # Convert ms to hours / CONVERTIR MS A HORAS
+top_artists = artist_hours.nlargest(10)  # Get the top 10 artists / OBTENER LOS 10 PRINCIPALES ARTISTAS
 
-# Crear la figura y el eje
+# Create the figure and axis / CREAR LA FIGURA Y EL EJE
 fig, ax = plt.subplots(figsize=(10, 6))
 
-# Diccionario para almacenar las líneas de cada artista
+# Dictionary to store the lines for each artist / DICCIONARIO PARA ALMACENAR LAS LÍNEAS DE CADA ARTISTA
 lines = {}
 
-# Función de inicialización de la gráfica
+# Initialization function for the plot / FUNCIÓN DE INICIALIZACIÓN DE LA GRÁFICA
 def init():
-    ax.set_xlabel('Fecha')
-    ax.set_ylabel('Horas Escuchadas')
-    ax.set_title('Top 10 Artistas - Todo el Año')
+    ax.set_xlabel('Date')  # X-axis label: Date / ETIQUETA DEL EJE X: FECHA
+    ax.set_ylabel('Hours Listened')  # Y-axis label: Hours Listened / ETIQUETA DEL EJE Y: HORAS ESCUCHADAS
+    ax.set_title('Top 10 Artists - All Year')  # Plot title: Top 10 Artists - All Year / TÍTULO DEL GRÁFICO: TOP 10 ARTISTAS - TODO EL AÑO
     return lines.values()
 
-# Función para actualizar la gráfica en cada cuadro de la animación
+# Function to update the plot for each frame of the animation / FUNCIÓN PARA ACTUALIZAR LA GRÁFICA EN CADA CUADRO DE LA ANIMACIÓN
 def update(frame):
     ax.clear()
-    ax.set_xlabel('Fecha')
-    ax.set_ylabel('Horas Escuchadas')
-    ax.set_title('Top 10 Artistas - Todo el Año')
+    ax.set_xlabel('Date')  # X-axis label: Date / ETIQUETA DEL EJE X: FECHA
+    ax.set_ylabel('Hours Listened')  # Y-axis label: Hours Listened / ETIQUETA DEL EJE Y: HORAS ESCUCHADAS
+    ax.set_title('Top 10 Artists - All Year')  # Plot title: Top 10 Artists - All Year / TÍTULO DEL GRÁFICO: TOP 10 ARTISTAS - TODO EL AÑO
     for artist_name in top_artists.index:
         artist_data = df[df['artistName'] == artist_name]
-        daily_hours = artist_data[artist_data['endTime'] <= frame].groupby(artist_data['endTime'].dt.date)['msPlayed'].sum().cumsum() / (1000 * 60 * 60)
+        daily_hours = artist_data[artist_data['endTime'] <= frame].groupby(artist_comments['endTime'].dt.date)['msPlayed'].sum().cumsum() / (1000 * 60 * 60)
         ax.plot(daily_hours.index, daily_hours.values, label=artist_name)
     ax.legend()
 
-# Crear la animación
+# Create the animation / CREAR LA ANIMACIÓN
 ani = FuncAnimation(fig, update, frames=pd.date_range(start=df['endTime'].min(), end=df['endTime'].max()), init_func=init)
 
-# Guardar la animación como un archivo mp4
+# Save the animation as an mp4 file / GUARDAR LA ANIMACIÓN COMO UN ARCHIVO MP4
 ani.save('top_artists_year.mp4', writer='ffmpeg')
 
 plt.show()
